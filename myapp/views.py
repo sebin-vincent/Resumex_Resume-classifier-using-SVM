@@ -48,11 +48,59 @@ def home(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == 'POST' and 'register' in request.POST:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/logged_home/')
+    elif request.method == 'POST' and 'signin' in request.POST:
+        context = {}
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user:
+            login(request, user)
+            return redirect('/logged_home/')
+        else:
+            context["error"] = "provide valid credentials"
+            return render(request, 'contact.html', context)
+
+    else:
+        form = UserCreationForm()
+    return render(request, 'contact.html', {'form': form})
 
 
 def about(request):
-    return render(request, 'about.html')
+    if request.method == 'POST' and 'register' in request.POST:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/logged_home/')
+    elif request.method == 'POST' and 'signin' in request.POST:
+        context = {}
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user:
+            login(request, user)
+            return redirect('/logged_home/')
+        else:
+            context["error"] = "provide valid credentials"
+            return render(request, 'about.html', context)
+
+    else:
+        form = UserCreationForm()
+    return render(request, 'about.html', {'form': form})
 
 
 @login_required
@@ -147,6 +195,10 @@ def logged_home(request):
                 context['url'] = link
                 context['download'] = 'Click here to download your classified resumes'
                 return render(request, 'loged_home.html', context)
+            else:
+                context={}
+                context['warning']="Please select a file in valid format"
+                return render(request,'loged_home.html',context)
     else:
         context = {}
         context['warning'] = 'Upload your file here'
@@ -155,13 +207,21 @@ def logged_home(request):
 
 @login_required
 def logged_about(request):
-    return render(request, 'loged_about.html')
+    if request.method == 'POST' and 'logout' in request.POST:
+        logout(request)
+        return redirect('/home')
+    else:
+        return render(request, 'loged_about.html')
 
 
 def logged_contact(request):
-    return render(request, 'loged_contact.html')
+    if request.method == 'POST' and 'logout' in request.POST:
+        logout(request)
+        return redirect('/home')
+    else:
+        return render(request, 'loged_contact.html')
 
 
-from django.shortcuts import render
+
 
 # Create your views here.
