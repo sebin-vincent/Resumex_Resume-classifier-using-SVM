@@ -87,7 +87,7 @@
          <div class="inner_breadcrumb  ml-4">
             <ul class="short_ls">
                <li>
-                  <a href="index.html">Home</a>
+                  <a href="{% url 'logged_home' %}">Home</a>
                   <span>/ /</span>
                </li>
                <li>Contact</li>
@@ -104,12 +104,10 @@
                   <div class="info-para">
                      <!--contact-map -->
                      <form action="#" method="post">
+                         {% csrf_token %}
                         <div class="row wls-contact-mid">
                            <div class="col-md-6 col-sm-6 form-group contact-forms">
-                              <input type="text" class="form-control" placeholder="Fist Name" required="">
-                           </div>
-                           <div class="col-md-6 col-sm-6 form-group contact-forms">
-                              <input type="text" class="form-control" placeholder="Last Name" required="">
+                              <input type="text" class="form-control" name="first_name" placeholder="Fist Name" required>
                            </div>
                         </div>
                         <div class="row agile-wls-contact-mid">
@@ -117,14 +115,14 @@
                               <input type="text" class="form-control" placeholder="Phone" required="">
                            </div>
                            <div class="col-md-6 col-sm-6 form-group contact-forms">
-                              <input type="email" class="form-control" placeholder="Email" required="">
+                              <input type="email" name="emailid" class="form-control" placeholder="Email" required="">
                            </div>
                         </div>
                         <div class="form-group contact-forms">
-                           <textarea class="form-control" rows="3" placeholder="Message.." required=""></textarea>
+                           <textarea class="form-control" rows="3" name="message" placeholder="Message.." required></textarea>
                         </div>
                         <div class="text-left click-subscribe">
-                           <button type="submit" class="btn btn-block click-me">Send</button>
+                           <button type="submit" name="email" class="btn btn-block click-me">Send</button>
                         </div>
                      </form>
                   </div>
