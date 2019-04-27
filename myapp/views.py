@@ -130,9 +130,12 @@ def logged_home(request):
                 newfile = open('res.txt', 'w')
                 file = open(filename, 'rb')
                 pdfreader = PyPDF2.PdfFileReader(file)
-                # print(pdfreader.getNumPages())
-                pageobj = pdfreader.getPage(0)
-                newfile.write(pageobj.extractText())
+                n=pdfreader.getNumPages()
+                count=0
+                while count<n:
+                    pageobj = pdfreader.getPage(count)
+                    newfile.write(pageobj.extractText())
+                    count +=1
                 file.close()
                 newfile.close()
                 text_file = open('res.txt', 'r')
@@ -162,9 +165,13 @@ def logged_home(request):
                         newfile = open('res.txt', 'w')
                         file = open((new_name + '/' + filename), 'rb')
                         pdfreader = PyPDF2.PdfFileReader(file)
-                        # print(pdfreader.getNumPages())
-                        pageobj = pdfreader.getPage(0)
-                        newfile.write(pageobj.extractText())
+                        n=pdfreader.getNumPages()
+                        count=0
+                        while count<n:
+                            pageobj = pdfreader.getPage(0)
+                            newfile.write(pageobj.extractText())
+                            count +=1
+
                         file.close()
                         newfile.close()
                         text_file = open('res.txt', 'r')
