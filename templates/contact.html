@@ -103,12 +103,10 @@
                   <div class="info-para">
                      <!--contact-map -->
                      <form action="#" method="post">
+                         {% csrf_token %}
                         <div class="row wls-contact-mid">
                            <div class="col-md-6 col-sm-6 form-group contact-forms">
-                              <input type="text" class="form-control" placeholder="Fist Name" required="">
-                           </div>
-                           <div class="col-md-6 col-sm-6 form-group contact-forms">
-                              <input type="text" class="form-control" placeholder="Last Name" required="">
+                              <input type="text" class="form-control" name="first_name" placeholder="Fist Name" required>
                            </div>
                         </div>
                         <div class="row agile-wls-contact-mid">
@@ -116,14 +114,14 @@
                               <input type="text" class="form-control" placeholder="Phone" required="">
                            </div>
                            <div class="col-md-6 col-sm-6 form-group contact-forms">
-                              <input type="email" class="form-control" placeholder="Email" required="">
+                              <input type="email" name="emailid" class="form-control" placeholder="Email" required="">
                            </div>
                         </div>
                         <div class="form-group contact-forms">
-                           <textarea class="form-control" rows="3" placeholder="Message.." required=""></textarea>
+                           <textarea class="form-control" rows="3" name="message" placeholder="Message.." required></textarea>
                         </div>
                         <div class="text-left click-subscribe">
-                           <button type="submit" class="btn btn-block click-me">Send</button>
+                           <button type="submit" name="email" class="btn btn-block click-me">Send</button>
                         </div>
                      </form>
                   </div>
@@ -133,20 +131,19 @@
                      <div class="contact_footer_grid_left text-center mb-3">
                         <span class="fa fa-map-marker"></span>
                      </div>
-                     <p>348 Melbourne, Beverly Hills, <br>New York City 90210.</p>
+                     <p>Government Engineering College, Sreekrishnapuram, <br> Palakkad.</p>
                   </div>
                   <div class="mb-lg-5 mb-md-4 mb-sm-3 mb-3 footer_grid_left text-center">
                      <div class="contact_footer_grid_left text-center mb-3">
                         <span class="fa fa-phone"></span>
                      </div>
-                     <p>+(000) 123 4565 32<br>+(010) 123 455 354</p>
+                     <p>(+91)9020613510<br>(+91)8086781913</p>
                   </div>
                   <div class="footer_grid_left text-center">
                      <div class="contact_footer_grid_left text-center mb-3">
                         <span class="fa fa-envelope"></span>
                      </div>
-                     <p><a href="mailto:info@example.com">info@example1.com</a> 
-                        <br><a href="mailto:info@example.com">info@example2.com</a>
+                     <p><a href="mailto:info@example.com">resumegroupx@gmail.com</a>
                      </p>
                   </div>
                </div>
@@ -157,59 +154,7 @@
          </div>
       </section>
       <!--//contact  -->
-      <!--footer-->
-      <footer class="buttom-footer py-lg-5 py-md-4 py-sm-3 py-3">
-         <div class="container-fluid py-3">
-            <h3 class="title clr text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">News Letter</h3>
-            <!--subscribe-->
-            <div class="mb-lg-5 mb-md-4 mb-3 sub-wthree-form">
-               <form>
-                  <div class="form-group email-sub-w3layouts">
-                     <input type="email" class="form-control email-sub-w3layouts" placeholder="Email" required="">
-                  </div>
-                  <div class="pt-sm-3 pt-2 text-center">
-                     <button type="submit" class="btn subscrib-btnn">Subscribe</button>
-                  </div>
-               </form>
-            </div>
-            <!--//subscribe-->
-            <div class="row">
-               <div class="col-lg-7 col-md-7">
-                  <div class="headder-logo-icon text-center">
-                     <h2><a href="index.html">Job-point</a></h2>
-                  </div>
-                  <div class="footer-bottom py-lg-4 py-md-3 py-2 text-center">
-                     <p>©2018 job-point. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
-                  </div>
-               </div>
-               <div class="col-lg-5 col-md-5">
-                  <div class="buttom-nav py-2">
-                     <nav class="border-line">
-                        <ul class="nav justify-content-center">
-                           <li class="nav-item active">
-                              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                           </li>
-                           <li class="nav-item">
-                              <a href="{% url 'about' %}" class="nav-link ">About</a>
-                           </li>
-                           <li class="nav-item">
-                              <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-                           </li>
-                        </ul>
-                     </nav>
-                  </div>
-                  <div class="icons text-center">
-                     <ul>
-                        <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                        <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa fa-rss"></span></a></li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </footer>
-      <!--//footer-->
+
       <!--/Login-->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered" role="document">

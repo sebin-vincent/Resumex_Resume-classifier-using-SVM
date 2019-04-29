@@ -68,10 +68,20 @@ def contact(request):
         if user:
             login(request, user)
             return redirect('/logged_home/')
-        else:
-            context["error"] = "provide valid credentials"
-            return render(request, 'contact.html', context)
+    elif request.method == 'POST' and 'email' in request.POST:
+        first_name = request.POST['first_name']
+        to_email_id = [request.POST['emailid']]
+        message = request.POST['message']
+        from_mail = settings.EMAIL_HOST_USER
+        site_admin = ['rakshith.sathish@gmail.com']
+        # Mail to admin about new enquiry
+        send_mail("New enquiry", message, from_mail, site_admin, fail_silently=False)
 
+        # Mail to customer
+        reply = "We got your enquiry.We will get back to you soon.Please don't reply to this mail.This is " \
+                "a system generated email.Thank you!"
+        send_mail("Regarding your equiry", reply, from_mail, to_email_id, fail_silently=False)
+        return render(request, 'contact.html')
     else:
         form = UserCreationForm()
     return render(request, 'contact.html', {'form': form})
@@ -231,7 +241,7 @@ def logged_contact(request):
         to_email_id=[request.POST['emailid']]
         message=request.POST['message']
         from_mail=settings.EMAIL_HOST_USER
-        site_admin=['ovjaseena@gmail.com']
+        site_admin=['rakshith.sathish@gmail.com']
 
         #Mail to admin about new enquiry
         send_mail("New enquiry",message,from_mail,site_admin,fail_silently=False)
