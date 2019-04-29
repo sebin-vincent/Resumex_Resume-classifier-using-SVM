@@ -113,7 +113,6 @@ def logged_home(request):
 
 
     elif request.method == 'POST' and 'upload' in request.POST:
-
         try:
             uploaded_file = request.FILES['document']
         except MultiValueDictKeyError:
@@ -187,7 +186,7 @@ def logged_home(request):
                     else:
                         continue
                 print("folder upload worked")
-                shutil.rmtree('resumes')
+                shutil.rmtree(new_name)
                 os.remove("media/" + str(uploaded_file.name))
                 shutil.make_archive('folder', 'zip', 'download_folder')
                 print("archieve created")
@@ -244,8 +243,3 @@ def logged_contact(request):
         return render(request,'loged_contact.html')
     else:
         return render(request, 'loged_contact.html')
-
-
-
-
-# Create your views here.
