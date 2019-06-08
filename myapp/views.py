@@ -20,6 +20,15 @@ import glob
 
 from Resumex import test
 
+import json
+
+#for pdf to text conversion
+from io import StringIO
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from pdfminer.pdfpage import PDFPage
+
 
 def home(request):
     if request.method == 'POST' and 'register' in request.POST:
@@ -136,28 +145,25 @@ def logged_home(request):
                 fs = FileSystemStorage()
                 fs.save(uploaded_file.name, uploaded_file)
                 filename = "media/" + str(filename)
-                newfile = open('res.txt', 'w')
-                file = open(filename, 'rb')
-                pdfreader = PyPDF2.PdfFileReader(file)
-                n=pdfreader.getNumPages()
-                count=0
-                while count<n:
-                    pageobj = pdfreader.getPage(count)
-                    newfile.write(pageobj.extractText())
-                    count +=1
-                file.close()
-                newfile.close()
+                textfile = open('res.txt', 'w')
+                textfile.write(convert(filename))
+                textfile.close()
+
                 text_file = open('res.txt', 'r')
+
                 resume = text_file.readlines()
                 makeitastring = ''.join(map(str, resume))
                 post = test.predict(makeitastring)
                 position = post[0]
+                context['flag2'] = '1'
                 context['position'] = 'The resumes belongs to ' + str(position)
                 os.remove(filename)
                 return render(request, 'loged_home.html', context)
             elif re.match(r'^.*\.zip$', filename):
                 context = {}
                 posts = []
+                crtdict={}
+                mylist=[['Task', 'Hours per Day']]
                 os.mkdir('download_folder')
                 fs = FileSystemStorage()
                 fs.save(filename, uploaded_file)
@@ -171,30 +177,31 @@ def logged_home(request):
                 for files in os.listdir(new_name):
                     filename = os.fsdecode(files)
                     if filename.endswith(".pdf"):
-                        newfile = open('res.txt', 'w')
-                        file = open((new_name + '/' + filename), 'rb')
-                        pdfreader = PyPDF2.PdfFileReader(file)
-                        n=pdfreader.getNumPages()
-                        count=0
-                        while count<n:
-                            pageobj = pdfreader.getPage(0)
-                            newfile.write(pageobj.extractText())
-                            count +=1
-
-                        file.close()
-                        newfile.close()
+                        textfile = open('res.txt', 'w')
+                        textfile.write(convert(new_name + '/' + filename))
+                        textfile.close()
                         text_file = open('res.txt', 'r')
                         resume = text_file.readlines()
                         makeitastring = ''.join(map(str, resume))
                         post = test.predict(makeitastring)
+                        post = post[0]
                         if post in posts:
                             shutil.copy((new_name + '/' + filename), ("download_folder/" + str(post)))
+                            crtdict[post]=crtdict[post]+1
                         else:
                             os.mkdir("download_folder/" + str(post))
                             shutil.copy((new_name + '/' + filename), ("download_folder/" + str(post)))
                             posts.append(post)
+                            crtdict[post]=1
                     else:
                         continue
+
+                for keys in crtdict:
+                    mylist.append([keys, crtdict[keys]])
+
+                print(mylist)
+                json_list=json.dumps(mylist)
+                context['chart']=json_list
                 print("folder upload worked")
                 shutil.rmtree(new_name)
                 os.remove("media/" + str(uploaded_file.name))
@@ -212,16 +219,16 @@ def logged_home(request):
                 link = fs.url('folder.zip')
                 context['url'] = link
                 context['download'] = 'Click here to download your classified resumes'
+                context['flag1'] = '1'
                 return render(request, 'loged_home.html', context)
             else:
-                context={}
-                context['warning']="Please select a file in valid format"
-                return render(request,'loged_home.html',context)
+                context = {}
+                context['warning'] = "Please select a file in valid format"
+                return render(request, 'loged_home.html', context)
     else:
         context = {}
         context['warning'] = 'Upload your file here'
         return render(request, 'loged_home.html', context)
-
 
 @login_required
 def logged_about(request):
@@ -253,3 +260,24 @@ def logged_contact(request):
         return render(request,'loged_contact.html')
     else:
         return render(request, 'loged_contact.html')
+
+
+def convert(fname, pages=None):
+    if not pages:
+        pagenums = set()
+    else:
+        pagenums = set(pages)
+
+    output = StringIO()
+    manager = PDFResourceManager()
+    converter = TextConverter(manager, output, laparams=LAParams())
+    interpreter = PDFPageInterpreter(manager, converter)
+
+    infile = open(fname, 'rb')
+    for page in PDFPage.get_pages(infile, pagenums):
+        interpreter.process_page(page)
+    infile.close()
+    converter.close()
+    text = output.getvalue()
+    output.close
+    return text

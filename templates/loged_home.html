@@ -32,6 +32,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    </head>
    <body>
       <div class="header-outs" id="header">
@@ -91,7 +92,7 @@
                               <h6></h6>
                            </div>
                             <div>
-                                <form enctype="multipart/form-data" method="post">
+                                <form enctype="multipart/form-data" method="post" id="uploadform">
                                     {% csrf_token %}
 
                            <div class="input-group mb-3" style="margin-top:20px;">
@@ -109,19 +110,37 @@
                                </script>
                               </div>
                             <div class="outs_more-buttn col-lg-4 col-md-4 offset-lg-5 offset-md-5" >
-                                <button style="margin-top:20px; margin-left: 10px;" type="submit" name="upload" class="register-hedder"  data-toggle="modal" data-target="#exampleModalCenter2">
+                                <button onclick="myFunction()" style="margin-top:20px; margin-left: 10px;" type="submit" name="upload" class="register-hedder"  data-toggle="modal" data-target="#exampleModalCenter2">
                                Upload <i style="margin-left:5px;" class="fa fa-upload" aria-hidden="true"></i>
                                </button>
                             </div>
                                     </form>
                                 </div>
+                            <div id="myDIV" style="display: none; z-index:99; width:100%; height:100%; top:0px; left:0px; position: fixed; background-color: white; opacity: 0.9">
+                                <img style="z-index:100; position:relative; left:0; right:0;bottom:0; top:100px" src="../static/images/loading2.gif"/>
+                            </div>
+
                            <div class="slider-sub" style="margin-top:100px;">
                               <h6 style="text-align:center; color:white;">{{ error }}</h6>
                                <h6 style="text-align:center; color:white;">{{ position }}</h6>
                                <h3 style="text-align:center; color:blue;"><a href="{{ url }}">{{ download }}</a> </h3>
                                <h6 style="text-align:center; color:white;">{{ warning }}</h6>
-
                            </div>
+                             {% if  flag1 %}
+                                <div class="outs_more-buttn col-lg-4 col-md-4 offset-lg-5 offset-md-5" >
+                                <button style="margin-top:25px;" type="submit"  class="register-hedder"  data-toggle="modal" data-target="#exampleModalCenter">
+                               Analyze <i style="margin-left:5px;" class="fa fa-line-chart" aria-hidden="true"></i>
+                               </button>
+                            </div>
+                            {% endif %}
+                            {% if  flag2 %}
+                                    <div class="outs_more-buttn col-lg-4 col-md-4 offset-lg-5 offset-md-5" >
+                                    <button style="margin-top:25px;" type="submit"  class="register-hedder"  data-toggle="modal" data-target="#example2ModalCenter">
+                                   Analyze <i style="margin-left:5px;" class="fa fa-line-chart" aria-hidden="true"></i>
+                                   </button>
+                                </div>
+                            {% endif %}
+
                         </div>
                      </div>
                   </div>
@@ -491,6 +510,67 @@ And the zip files can be downloaded as a new zip file containing the resumes wit
          </div>
          <!--carousel-inner-->
       </section>
+
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content" >
+               <div class="modal-header text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+                <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      var newdata={{ chart|safe }};
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable(newdata);
+
+        var options = {
+          title: '',
+            is3D: true,
+            sliceVisibilityThreshold: .05,
+            chartArea:{left:100,top:10,width:'200%',height:'200%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+               <div class="modal-body" style="height:400px ! important;">
+                  <div class="login px-4 py-4 mx-auto mw-100" >
+                     <h5 class="text-center mb-4">Resume Distribution </h5>
+                      <div id="piechart" style="width: 900px; height: 500px;"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="example2ModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-header text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div class="login px-4 py-4 mx-auto mw-100">
+                     <h5 class="text-left mb-4">Name : </h5>
+                      <h5 class="text-left mb-4">Name : </h5>
+                      <h5 class="text-left mb-4">Name : </h5>
+                      <h5 class="text-left mb-4">Name : </h5>
+                      <h5 class="text-left mb-4">Name : </h5>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
       <!--//Testmonials-->
       <!--stats-->
 <!--
@@ -641,6 +721,7 @@ And the zip files can be downloaded as a new zip file containing the resumes wit
       <!--responsiveslides banner-->
 
       <script src="../static/js/responsiveslides.min.js"></script>
+
       <script>
          // You can also use "$(window).load(function() {"
          $(function () {
@@ -675,6 +756,17 @@ And the zip files can be downloaded as a new zip file containing the resumes wit
       <script src="../static/js/move-top.js"></script>
       <script src="../static/js/easing.js"></script>
       <script>
+          function myFunction() {
+              var x = document.getElementById("myDIV");
+              if (x.style.display === "none") {
+                x.style.display = "block";
+              } else {
+                x.style.display = "none";
+              }
+              var y = document.getElementById("uploadform");
+              y.style.display = "none";
+
+            }
          jQuery(document).ready(function ($) {
          	$(".scroll").click(function (event) {
          		event.preventDefault();
@@ -702,6 +794,7 @@ And the zip files can be downloaded as a new zip file containing the resumes wit
          	});
 
          });
+
       </script>
       <!-- //here ends scrolling icon -->
       <!--bootstrap working-->
