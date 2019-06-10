@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 from Resumex import settings
 # Create your views here.
-import re
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
@@ -27,6 +26,10 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
+
+import csv
+import re
+import spacy
 
 
 import nltk
@@ -146,9 +149,44 @@ def logged_home(request):
                 context = {}
                 fs = FileSystemStorage()
                 fs.save(uploaded_file.name, uploaded_file)
+                with open('techskill.csv', 'r') as f:
+                    reader = csv.reader(f)
+                    your_list = list(reader)
+                with open('nontechnicalskills.csv', 'r') as f:
+                    reader = csv.reader(f)
+                    your_list1 = list(reader)
                 filename = "media/" + str(filename)
                 makeitastring =convert(filename)
+                resume_string1 = makeitastring
                 post = test.predict(makeitastring)
+                makeitastring = makeitastring.replace(',', ' ')
+                makeitastring = makeitastring.lower()
+                s = set(your_list[0])
+                s1 = set(your_list1[0])
+
+                def technical_skills():
+                    skills = []
+                    for word in makeitastring.split(" "):
+                        if word in s:
+                            skills.append(word)
+                    return list(set(skills))
+
+                def non_techlskills():
+                    nontechskills = []
+                    for word in makeitastring.split(" "):
+                        if word in s1:
+                            nontechskills.append(word)
+                    return list(set(nontechskills))
+
+                print(extract_name(resume_string1))
+
+                print(extract_phone_numbers(makeitastring))
+
+                print(extract_email_addresses(makeitastring))
+
+                print(technical_skills())
+                print(non_techlskills())
+
                 position = post[0]
                 context['flag2'] = '1'
                 context['position'] = 'The resumes belongs to ' + str(position)
@@ -275,3 +313,22 @@ def convert(fname, pages=None):
     text = output.getvalue()
     output.close
     return text
+
+def extract_name(string):
+    r1 = str(string)
+    nlp = spacy.load('xx')
+    doc = nlp(r1)
+    for ent in doc.ents:
+        if(ent.label_ == 'PER'):
+            return (ent.text)
+
+
+def extract_phone_numbers(string):
+    r = re.compile(r'(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})')
+    phone_numbers = r.findall(string)
+    return list(set([re.sub(r'\D', '', number) for number in phone_numbers]))
+
+def extract_email_addresses(string):
+    r = re.compile(r'[\w\.-]+@[\w\.-]+')
+    return list(set(r.findall(string)))
+
