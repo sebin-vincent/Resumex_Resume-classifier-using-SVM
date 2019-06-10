@@ -1,104 +1,98 @@
-NG, KA KA KATHERINE 
+ 
+ 
 
-Room 2015, Tsui To House, Tsui Ping Estate 
+ 
+EDUCATION 
 
-Kwun Tong, Hong Kong 
+Charles Babbage 
 
-Tel : 6576-2370 
+1101 Kahn Lane 
 
-Email : katherine01171@hotmail.com 
+Baltimore, MD 21211 
+
+cbabbage1@students.towson.edu 
+
+410-555-555 
+
+ 
+Bachelor of Science, Information Technology   
+Towson University, Towson, MD 
+3.2 GPA, IT GPA: 3.5 
 
  
 
-Working Experience 
-Jul 2014 – Present, FundBPO 
+                                               May 20XX 
 
-Portfolio Analyst (middle-office) 
-  Monitor and process trade allocation, matching, delivery, confirmation, and 
+                                                     
 
-settlement 
+  Successfully managed full-time coursework while working part-time 
 
- 
+  
 
- 
+TECHNICAL SKILLS 
 
-Perform daily position reconciliations and cash reconciliations between fund 
-
-manager and prime brokers / custodian 
-
-Liaise with execution brokers and prime brokers to resolve breaches of trades, 
-
-cash balances and positions 
-
-  Monitor failed trade resolution 
-  Monitor individual equity securities for cash dividends, corporate actions and 
-
-capital changes 
-
-System securities creation and maintenance 
-
-Participate as a Subject Matter Expert on projects 
-
-Responsible for daily maintenance of the full books of accounts for the funds 
-
-including cash management, securities pricing, fee calculations and processing 
-
-of investor subscriptions, redemptions and transfers 
-
-Perform P&L reports, NAV reports and other financial reports 
-
-Perform and monitoring the account opening operation and account 
-
-administration 
-Serve as mentor and/or trainer to newly hired associates 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-Jul 2013 – Aug 2013, The Government of HKSAR, Census and Statistics Department 
-
-Summer Internship 
- 
-
-To collect and verify statistical information through field visits and telephone 
-
-enquiries to sampled establishments. 
+ 
+Languages: Python 2.7.3 | Java 7 | C, C++ | HTML 
+Tools and Software: Dreamweaver | UltraEdit | Rational Rose | Photoshop 
+Operating Systems: Linux | Mac OS | Windows XP, 7, 8 and 10 
+ 
+RELEVANT INFORMATION TECHNOLOGY PROJECTS 
 
  
 
-Apr 2013 – Feb 2016, The Government of HKSAR, Kwun Tong District Office 
+System Administration and Maintenance                                    
 
-Community Organizer 
- 
+ 
 
-To assist implementation of community involvement projects and activities and 
+         Fall 20XX 
 
-related work for Committees  
+  Searched and manipulated files in Linux with the cp, mv, find, touch, and grep 
+
+commands 
+
+Fundamentals of Information Systems and Technology             
+
+ 
+
+         Fall 20XX 
+
+  Used leadership and communication skills to consolidate and edit documentation for 
+
+group E-Commerce website project  
+
+             General Computer Science                                                                   
+
+ 
+
+     Spring20XX 
+
+  Developed and implemented an ATM program, student information record system, and 
+
+tic-tac-toe game in Python 
+
+Computer Science I                                              
+
+         
 
  
 
  
 
-Education 
+         Fall 20XX 
 
+  Wrote and debugged object-oriented Java programs that calculated speeding tickets, 
+
+employee salary, and loan rates 
  
 
- 
+RELEVANT TRAINING 
 
  
+Charm City Linux                                                                                 September 20XX – present 
+Trainee, Baltimore, MD 
 
-      The Open University of Hong Kong 
-
-2014 – 2016 
+  Attend a teaching group to obtain additional experience working with Linux 
+  Obtain additional training through LinuxFoundationX practice course 
 
  
 
@@ -108,17 +102,11 @@ related work for Committees
 
  
 
- 
+WORK HISTORY 
 
  
-
-   
-
-2011 – 2014 
-
- 
-
- 
+Best Buy 
+Sales Associate, City, MD    
 
  
 
@@ -127,99 +115,24 @@ related work for Committees
  
 
  
-
  
 
  
 
+            
+
+          
  
 
-Bachelor of Business Administration with Honours in    
-
-Banking and Finance – First Class Honours   
-
-GPA = 3.53 
-
-BBA in Banking and Finance (3 Year) 
-
- 
-
-2004 – 2011     
-
-Kwun Tong Government Secondary School   
-
-Hong Kong Advanced Level Examination (2011) 
-
-Hong Kong Certificate Education of Examination (2009) 
-
- 
-AWARDS 
- 
-
-2012 – 2013 
-
+       
  
 
  
-
  
 
- 
+                    July 20XX - present 
 
- 
-
- 
-
-Self-financing Post-secondary Scholarship Scheme   
-
-Outstanding Performance Scholarship 
-
- 
-LANGUAGE SKILLS 
- 
- 
-SKILLS 
- 
- 
-
-Good commend of Cantonese, Mandarin and English 
-
-Knowledge in Omgeo Alert, CTM, PAXUS, Imagine and Geneva 
-
-Knowledge in equity, CFDs, SWAP, FX, Futures and Option 
-
- 
-
- 
-
- 
-
- 
-
-Knowledge in settlement, SSI 
-
-Knowledge in corporate action 
-
-Proficient PC knowledge in MS Word, Excel, PowerPoint   
-
-Basic knowledge of VBA 
-
-English typing speed is 30 w.p.m. 
-
-Chinese typing speed is 20 w.p.m. 
-
-One-month Notification 
-
- 
-AVAILABILITY 
- 
- 
-PREVIOUS SALARY 
- 
-18,250 per month 
- 
-EXPECTED SALARY 
- 
-23,000 per month 
+  Provide excellent customer service by resolving customer concerns professionally 
+  Maintain an in-depth knowledge of all products to ensure accurate information 
 
 

@@ -12,11 +12,10 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.mail import send_mail
-import PyPDF2
+
 import os
 import shutil
 from zipfile import ZipFile
-import glob
 
 from Resumex import test
 
@@ -28,6 +27,9 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
+
+
+import nltk
 
 
 def home(request):
@@ -145,14 +147,7 @@ def logged_home(request):
                 fs = FileSystemStorage()
                 fs.save(uploaded_file.name, uploaded_file)
                 filename = "media/" + str(filename)
-                textfile = open('res.txt', 'w')
-                textfile.write(convert(filename))
-                textfile.close()
-
-                text_file = open('res.txt', 'r')
-
-                resume = text_file.readlines()
-                makeitastring = ''.join(map(str, resume))
+                makeitastring =convert(filename)
                 post = test.predict(makeitastring)
                 position = post[0]
                 context['flag2'] = '1'
@@ -177,12 +172,7 @@ def logged_home(request):
                 for files in os.listdir(new_name):
                     filename = os.fsdecode(files)
                     if filename.endswith(".pdf"):
-                        textfile = open('res.txt', 'w')
-                        textfile.write(convert(new_name + '/' + filename))
-                        textfile.close()
-                        text_file = open('res.txt', 'r')
-                        resume = text_file.readlines()
-                        makeitastring = ''.join(map(str, resume))
+                        makeitastring =convert(new_name + '/' + filename)
                         post = test.predict(makeitastring)
                         post = post[0]
                         if post in posts:
@@ -199,7 +189,6 @@ def logged_home(request):
                 for keys in crtdict:
                     mylist.append([keys, crtdict[keys]])
 
-                print(mylist)
                 json_list=json.dumps(mylist)
                 context['chart']=json_list
                 print("folder upload worked")
@@ -260,6 +249,11 @@ def logged_contact(request):
         return render(request,'loged_contact.html')
     else:
         return render(request, 'loged_contact.html')
+
+
+
+import nltk
+
 
 
 def convert(fname, pages=None):
