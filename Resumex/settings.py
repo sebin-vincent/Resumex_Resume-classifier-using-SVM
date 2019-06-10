@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_HOST_USER='hellosebinvincent@gmail.com'
-EMAIL_HOST_PASSWORD='8086781913vV@'
+EMAIL_HOST_PASSWORD='xxxxxxxxxx'
 EMAIL_PORT=587
 EMAIL_USE_TLS= True
 
