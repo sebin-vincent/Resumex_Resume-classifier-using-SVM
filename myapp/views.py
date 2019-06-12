@@ -135,7 +135,6 @@ def logged_home(request):
         logout(request)
         return redirect('/home')
 
-
     elif request.method == 'POST' and 'upload' in request.POST:
         try:
             uploaded_file = request.FILES['document']
@@ -163,36 +162,63 @@ def logged_home(request):
                 makeitastring = makeitastring.lower()
                 s = set(your_list[0])
                 s1 = set(your_list1[0])
-
                 def technical_skills():
                     skills = []
                     for word in makeitastring.split(" "):
                         if word in s:
                             skills.append(word)
                     return list(set(skills))
-
                 def non_techlskills():
                     nontechskills = []
                     for word in makeitastring.split(" "):
                         if word in s1:
                             nontechskills.append(word)
                     return list(set(nontechskills))
+                name=extract_name(resume_string1)
+                print(name)
 
-                print(extract_name(resume_string1))
+                if name:
+                    context['name']=name
+                else:
+                    context['name']='Not available !'
 
-                print(extract_phone_numbers(makeitastring))
+                phn_num=extract_phone_numbers(makeitastring)
+                print(phn_num)
 
-                print(extract_email_addresses(makeitastring))
+                if(phn_num):
+                    context['phn_num']=phn_num[0]
+                else:
+                    context['phn_num']='Not available !'
 
-                print(technical_skills())
-                print(non_techlskills())
+                email=extract_email_addresses(makeitastring)
+                print(email)
+                if email:
+                    context['email']=email[0]
+                else:
+                    context['email']='Not available !'
+                tech_skill=technical_skills()
+                #print(technical_skills())
+                if tech_skill:
+                    strtch=",".join(tech_skill)
+                    print(strtch)
+                    context['techskill']=strtch
+                else:
+                    context['techskill']='Not Available'
 
+                non_tchskill=non_techlskills()
+                print(non_tchskill)
+                strtch=''
+                if non_tchskill:
+                    strtch=",".join(non_tchskill)
+                    context['non_tech']=strtch
+                else:
+                    context['non_tech']='Not available'
                 position = post[0]
                 context['flag2'] = '1'
                 context['position'] = 'The resumes belongs to ' + str(position)
                 os.remove(filename)
                 return render(request, 'loged_home.html', context)
-            elif re.match(r'^.*\.zip$', filename):
+            elif re.match(r'^.*\.zip$',filename):
                 context = {}
                 posts = []
                 crtdict={}

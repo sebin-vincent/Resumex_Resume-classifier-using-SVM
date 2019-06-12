@@ -512,39 +512,45 @@ And the zip files can be downloaded as a new zip file containing the resumes wit
       </section>
 
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document" >
-            <div class="modal-content" >
+         <div class="modal-dialog modal-dialog-centered" role="document" style="width:750px;">
+            <div class="modal-content" style="width:750px; margin-left:-150px; background:#bbb;">
                <div class="modal-header text-center">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
                 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawChart);
 
-      var newdata={{ chart|safe }};
+                  var newdata={{ chart|safe }};
 
-      function drawChart() {
+                  function drawChart() {
 
-        var data = google.visualization.arrayToDataTable(newdata);
+                  var data = google.visualization.arrayToDataTable(newdata);
 
-        var options = {
-          title: '',
-            is3D: true,
-            sliceVisibilityThreshold: .05,
-            chartArea:{left:100,top:10,width:'200%',height:'200%'}
-        };
+                  var options = {
+                     title: '',
+                        is3D: true,
+                        sliceVisibilityThreshold: .05,
+                        chartArea:{left:100,top:10,width:'100%',height:'100%'}
+                  };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-        chart.draw(data, options);
-      }
-    </script>
+                  chart.draw(data, options);
+
+                  var  el = document.getElementsByTagName('svg')[0];
+                  el.style.width = "750px";
+                  el.style.marginLeft = "100px";
+                  var rect = document.getElementsByTagName('rect')[0];
+                  rect.setAttribute("fill", "#bbb");;
+                  }
+               </script>
                <div class="modal-body" style="height:400px ! important;">
-                  <div class="login px-4 py-4 mx-auto mw-100" >
-                     <h5 class="text-center mb-4">Resume Distribution </h5>
-                      <div id="piechart" style="width: 900px; height: 500px;"></div>
+                  <div class="login px-4 py-4 mx-auto" >
+                     <h5 class="text-center mb-4" style="color:#333;">Resume Distribution </h5>
+                      <div id="piechart" style="width: 750px; height: 500px;"></div>
                   </div>
                </div>
             </div>
@@ -559,13 +565,40 @@ And the zip files can be downloaded as a new zip file containing the resumes wit
 
                   </button>
                </div>
-               <div class="modal-body">
+               <div class="modal-body" style="padding-right:45px;">
                   <div class="login px-4 py-4 mx-auto mw-100">
-                     <h5 class="text-left mb-4">Name : </h5>
-                      <h5 class="text-left mb-4">Name : </h5>
-                      <h5 class="text-left mb-4">Name : </h5>
-                      <h5 class="text-left mb-4">Name : </h5>
-                      <h5 class="text-left mb-4">Name : </h5>
+                     <form>
+                        <div class="form-group row">
+                           <label for="staticEmail" class="col-sm-5 col-form-label">Name:</label>
+                           <div class="col-sm-7">
+                              <input style="background:#ccc; padding-left:10px;" type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ name }}">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label for="staticEmail" class="col-sm-5 col-form-label">Email:</label>
+                           <div class="col-sm-7">
+                              <input style="background:#ccc; padding-left:10px;" type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ email }}">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label for="staticEmail" class="col-sm-5 col-form-label">Mobile:</label>
+                           <div class="col-sm-7">
+                              <input style="background:#ccc; padding-left:10px;" type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ phn_num }}">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label for="staticEmail" class="col-sm-5 col-form-label">Technical Skills:</label>
+                           <div class="col-sm-7">
+                              <textarea class="form-control" style="background:#ccc;" rows="5" readonly id="comment">{{ techskill }}</textarea>
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label for="staticEmail" class="col-sm-5 col-form-label">Non Technical Skills:</label>
+                           <div class="col-sm-7">
+                              <textarea class="form-control" style="background:#ccc;" rows="5" readonly id="comment">{{ non_tech }}</textarea>
+                           </div>
+                        </div>
+                     </form>
                   </div>
                </div>
             </div>
